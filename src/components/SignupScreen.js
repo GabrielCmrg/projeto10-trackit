@@ -26,7 +26,7 @@ export default function SignupScreen() {
             name,
             image,
             password
-        }
+        };
 
         const promise = axios.post(URL, credentials);
         promise
