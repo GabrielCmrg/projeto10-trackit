@@ -29,7 +29,10 @@ export default function LoginScreen() {
         const promise = axios.post(URL, credentials);
         promise
             .then(response => {
-                setLoginInfo(response.data);
+                const { image, token } = response.data;
+                setLoginInfo({ image, token });
+                localStorage.setItem("image", image);
+                localStorage.setItem("token", token);
                 setIsLoading(false);
                 navigate("/hoje");
             })

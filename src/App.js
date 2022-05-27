@@ -11,7 +11,10 @@ import SignupScreen from "./components/SignupScreen";
 import TodayScreen from "./components/TodayScreen";
 
 export default function App() {
-    const [loginInfo, setLoginInfo] = React.useState({});
+    const [loginInfo, setLoginInfo] = React.useState({
+        image: localStorage.getItem("image"),
+        token: localStorage.getItem("token")
+    });
     const [tasks, setTasks] = React.useState([]);
     const [tasksDone, setTasksDone] = React.useState(0);
 

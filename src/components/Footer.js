@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import ApplicationContext from "../contexts/ApplicationContext";
 
+import "react-circular-progressbar/dist/styles.css";
+
 export default function Footer() {
     const { tasks, tasksDone } = useContext(ApplicationContext);
 
