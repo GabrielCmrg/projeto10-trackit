@@ -2,12 +2,13 @@ import axios from "axios";
 import dayjs from "dayjs";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 
 import ApplicationContext from "../contexts/ApplicationContext";
 import Body from "./Body";
+import Description from "./Description";
 import Footer from "./Footer";
 import Header from "./Header";
+import Title from "./Title";
 
 import "dayjs/locale/pt-br";
 
@@ -53,20 +54,10 @@ export default function TodayScreen() {
     return(
         <Body>
             <Header />
-            <Date>{dateString}</Date>
+            <Title>{dateString}</Title>
             <Description color={color}>{description}</Description>
             {tasks}
             <Footer />
         </Body>
     );
 }
-
-const Date = styled.div`
-    font-size: 23px;
-    color: #126BA5;
-`;
-
-const Description = styled.div`
-    font-size: 18px;
-    color: ${props => props.color};
-`;

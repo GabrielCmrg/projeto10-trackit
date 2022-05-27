@@ -14,7 +14,13 @@ export default function LoginScreen() {
     const [password, setPassword] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false);
     const navigate = useNavigate();
-    const { setLoginInfo } = React.useContext(ApplicationContext);
+    const { loginInfo, setLoginInfo } = React.useContext(ApplicationContext);
+
+    React.useEffect(() => {
+        if (loginInfo.token !== null) {
+            navigate("/hoje");
+        }
+    }, [loginInfo, navigate]);
 
     function login(e) {
         e.preventDefault();
