@@ -12,8 +12,20 @@ import TodayScreen from "./components/TodayScreen";
 
 export default function App() {
     const [loginInfo, setLoginInfo] = React.useState({});
+    const [tasks, setTasks] = React.useState([]);
+    const [tasksDone, setTasksDone] = React.useState(0);
 
-    const contextValue = {loginInfo, setLoginInfo};
+    React.useEffect(() => {
+        let count = 0;
+        tasks.forEach(task => {
+            if (task.done) {
+                count++;
+            }
+        });
+        setTasksDone(count);
+    }, [tasks]);
+
+    const contextValue = {loginInfo, setLoginInfo, tasks, setTasks, tasksDone, setTasksDone};
 
     return (
         <ApplicationContext.Provider value={contextValue} >

@@ -1,32 +1,62 @@
+import axios from "axios";
+import dayjs from "dayjs";
 import React from "react";
-import { CircularProgressbar } from 'react-circular-progressbar';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import 'react-circular-progressbar/dist/styles.css';
+import "dayjs/locale/pt-br";
+import "react-circular-progressbar/dist/styles.css";
 
 import ApplicationContext from "../contexts/ApplicationContext";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function TodayScreen() {
-    const { loginInfo } = React.useContext(ApplicationContext);
+    const { loginInfo, tasks, setTasks, tasksDone } = React.useContext(ApplicationContext);
+    const navigate = useNavigate();
+
+    const now = dayjs().locale("pt-br");
+    const date = now.format("dddd, DD/MM");
+    const dateString = date.charAt(0).toUpperCase() + date.slice(1);
+
+    React.useEffect(() => {
+        if (loginInfo.token === undefined) {
+            navigate("/");
+        }
+
+        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
+        const config = {
+            headers: {
+                Authorization: `Bearer ${loginInfo.token}`
+            }
+        }
+
+        const promise = axios.get(URL, config);
+        promise
+            .then(response => setTasks(response.data))
+            .catch(error => console.log(error.response));
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    function formPhrase() {
+        if (tasks.length === 0 || tasksDone / tasks.length === 0) {
+            return ["Nenhum hábito concluído ainda", "#BABABA"];
+        } else {
+            const percentage = tasksDone / tasks.length;
+            return [`${percentage.toFixed()}% dos hábitos concluídos`, "#8FC549"];
+        }
+    }
+
+    const [description, color] = formPhrase();
 
     return(
         <Body>
-            <Header>
-                <div className="site-title">TrackIt</div>
-                <ProfilePhoto src={loginInfo.image} alt="profile" />
-            </Header>
-            <Footer>
-                <Link to="/habitos">
-                    Hábitos
-                </Link>
-                <ProgressBar>
-                    <CircularProgressbar value={20} text={"Hoje"} background backgroundPadding={6}/>
-                </ProgressBar>
-                <Link to="/historico">
-                    Histórico
-                </Link>
-            </Footer>
+            <Header />
+            <Date>{dateString}</Date>
+            <Description color={color}>{description}</Description>
+            {tasks}
+            <Footer />
         </Body>
     );
 }
@@ -34,67 +64,15 @@ export default function TodayScreen() {
 const Body = styled.div`
     background-color: #F2F2F2;
     height: 100vh;
+    padding: 98px 18px;
 `;
 
-const Header = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background-color: #126BA5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 40px;
-    color: white;
-    padding: 0 18px;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+const Date = styled.div`
+    font-size: 23px;
+    color: #126BA5;
 `;
 
-const ProfilePhoto = styled.img`
-    border-radius: 50%;
-    width: 51px;
-    height: 51px;
-    object-fit: cover;
-`;
-
-const Footer = styled.div`
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 36px;
-    box-sizing: border-box;
-`;
-
-const ProgressBar = styled.div`
-    width: 90px;
-    height: 90px;
-    position: absolute;
-    bottom: 10px;
-    left: calc(50% - 45px);
-
-    .CircularProgressbar-path {
-        stroke: white;
-    }
-
-    .CircularProgressbar-trail {
-        stroke: #52B6FF;
-    }
-
-    .CircularProgressbar-text {
-        fill: white;
-        font-size: 18px;
-    }
-
-    .CircularProgressbar-background {
-        fill: #52B6FF;
-    }
+const Description = styled.div`
+    font-size: 18px;
+    color: ${props => props.color};
 `;
