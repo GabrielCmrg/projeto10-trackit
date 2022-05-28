@@ -41,3 +41,5 @@ const DayButton = styled.button`
     margin: 3px;
     cursor: pointer;
 `;
+
+export { DayButton };

@@ -8,6 +8,7 @@ import Body from "./Body";
 import Button from "./Button";
 import Description from "./Description";
 import Footer from "./Footer";
+import HabitCard from "./HabitCard";
 import HabitCreationCard from "./HabitCreationCard";
 import Header from "./Header";
 import Title from "./Title";
@@ -63,7 +64,7 @@ export default function HabitsScreen() {
                     <Button onClick={() => setIsCreatingHabit(true)}>+</Button>
                 </Flex>
                 {isCreatingHabit? <HabitCreationCard loadHabits={loadHabits} setIsCreatingHabit={setIsCreatingHabit}/>: null}
-                {habits.map(habit => <div key={habit.id}>Nome do habito: {habit.name}</div>)}
+                {habits.map(habit => <HabitCard key={habit.id} id={habit.id} name={habit.name} days={habit.days} loadHabits={loadHabits} />)}
                 {descriptionText}
             <Footer />
         </Body>

@@ -88,8 +88,9 @@ const Form = styled.form`
     background-color: white;
     border-radius: 5px;
     padding: 18px;
+    margin-bottom: 30px;
 
     input {
         color: #666666;
     }
-`
+`;
