@@ -13,17 +13,20 @@ export default function HabitCard({ id, name, days, loadHabits }) {
     const { loginInfo } = React.useContext(ApplicationContext);
 
     function deleteHabit() {
-        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/" + id;
-        const config = {
-            headers: {
-                Authorization: "Bearer " + loginInfo.token
+        const confirmed = window.confirm("Tem certeza que deseja apagar esse hábito? Não há como voltar atrás!");
+        if (confirmed) {
+            const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/" + id;
+            const config = {
+                headers: {
+                    Authorization: "Bearer " + loginInfo.token
+                }
             }
-        }
 
-        const promise = axios.delete(URL, config);
-        promise
-            .then(() => loadHabits(loginInfo.token))
-            .catch(error => console.log(error.response));
+            const promise = axios.delete(URL, config);
+            promise
+                .then(() => loadHabits(loginInfo.token))
+                .catch(error => console.log(error.response));
+        }
     }
 
     return (
@@ -32,7 +35,7 @@ export default function HabitCard({ id, name, days, loadHabits }) {
             <Flex>
                 {week.map((day, ind) => {
                     const selected = days.includes(ind);
-                    return (<DayButton color={selected? "white": "#CFCFCF"} bgcolor={selected? "#CFCFCF": "white"}>{day[0].toUpperCase()}</DayButton>);
+                    return (<DayButton key={ind} color={selected? "white": "#CFCFCF"} bgcolor={selected? "#CFCFCF": "white"}>{day[0].toUpperCase()}</DayButton>);
                 })}
             </Flex>
         </Frame>
@@ -57,9 +60,14 @@ const Frame = styled.div`
         position: absolute;
         top: 10px;
         right: 10px;
+        cursor: pointer;
     }
 `;
 
 const Flex = styled.div`
     display: flex;
+
+    button {
+        cursor: default;
+    }
 `;

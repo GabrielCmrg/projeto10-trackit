@@ -41,6 +41,7 @@ export default function HabitCreationCard({ loadHabits, setIsCreatingHabit }) {
                 .catch(error => console.log(error.response));
         } else {
             alert("Selecione um dia da semana.");
+            setIsLoading(false);
         }
     }
 
