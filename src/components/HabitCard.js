@@ -4,13 +4,16 @@ import React from "react";
 import styled from "styled-components";
 
 import ApplicationContext from "../contexts/ApplicationContext";
+import HabitsContext from "../contexts/HabitsContext";
+
 import { DayButton }  from "./Day";
 
-export default function HabitCard({ id, name, days, loadHabits }) {
+export default function HabitCard({ id, name, days }) {
     dayjs.extend(require("dayjs/plugin/localeData"));
     dayjs.locale(require("dayjs/locale/pt-br"));
     const week = dayjs.weekdays();
     const { loginInfo } = React.useContext(ApplicationContext);
+    const { loadHabits } = React.useContext(HabitsContext);
 
     function deleteHabit() {
         const confirmed = window.confirm("Tem certeza que deseja apagar esse hábito? Não há como voltar atrás!");

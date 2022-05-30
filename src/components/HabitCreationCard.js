@@ -4,15 +4,16 @@ import React from "react";
 import styled from "styled-components";
 
 import ApplicationContext from "../contexts/ApplicationContext";
+import HabitsContext from "../contexts/HabitsContext";
+
 import Button from "./Button";
 import Day from "./Day";
 import Input from "./Input";
 import Loader from "./Loader";
 
-export default function HabitCreationCard({ loadHabits, setIsCreatingHabit }) {
+export default function HabitCreationCard() {
+    const { loadHabits, setIsCreatingHabit, selectedDays, setSelectedDays, habitName, setHabitName } = React.useContext(HabitsContext);
     const [isLoading, setIsLoading] = React.useState(false);
-    const [habitName, setHabitName] = React.useState("");
-    const [selectedDays, setSelectedDays] = React.useState([]);
     const { loginInfo } = React.useContext(ApplicationContext);
 
     function sendToServer(e) {
@@ -36,9 +37,14 @@ export default function HabitCreationCard({ loadHabits, setIsCreatingHabit }) {
                 .then(() => {
                     setIsLoading(false);
                     setIsCreatingHabit(false);
+                    setHabitName("");
+                    setSelectedDays([]);
                     loadHabits(loginInfo.token);
                 })
-                .catch(error => console.log(error.response));
+                .catch(error => {
+                    setIsLoading(false);
+                    alert("Algo deu errado com o servidor\n" + error.response.statusText);
+                });
         } else {
             alert("Selecione um dia da semana.");
             setIsLoading(false);
@@ -52,7 +58,7 @@ export default function HabitCreationCard({ loadHabits, setIsCreatingHabit }) {
     return (
         <Form onSubmit={sendToServer}>
             <Input id="habit-name" placeholder="nome do hábito" value={habitName} onChange={e => setHabitName(e.target.value)} disabled={isLoading} required/>
-            <Flex>{week.map((day, index) => <Day key={index} index={index} day={day} selectedDays={selectedDays} setSelectedDays={setSelectedDays} isLoading={isLoading}/>)}</Flex>
+            <Flex>{week.map((day, index) => <Day key={index} index={index} day={day} isLoading={isLoading}/>)}</Flex>
             <FlexEnd>
                 <span onClick={() => setIsCreatingHabit(false)}>Cancelar</span>
                 <Button type="submit" disabled={isLoading}>{isLoading? <Loader />: "Salvar"}</Button>

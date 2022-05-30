@@ -20,7 +20,7 @@ export default function LoginScreen() {
         if (loginInfo.token !== null) {
             navigate("/hoje");
         }
-    }, [loginInfo, navigate]);
+    }, [loginInfo.token, navigate]);
 
     function login(e) {
         e.preventDefault();

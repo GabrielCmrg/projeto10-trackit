@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Day({ day, index, selectedDays, setSelectedDays, isLoading }) {
-    const [selected, setSelected] = React.useState(false);
+import HabitsContext from "../contexts/HabitsContext";
+
+export default function Day({ day, index, isLoading }) {
+    const {selectedDays, setSelectedDays } = React.useContext(HabitsContext);
+    const [selected, setSelected] = React.useState(selectedDays.includes(index));
 
     React.useEffect(() => {
         if (selected) {

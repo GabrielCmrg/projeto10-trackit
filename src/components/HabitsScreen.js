@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import ApplicationContext from "../contexts/ApplicationContext";
+import HabitsContext from "../contexts/HabitsContext";
+
 import Body from "./Body";
 import Button from "./Button";
 import Description from "./Description";
@@ -18,6 +20,8 @@ export default function HabitsScreen() {
     const navigate = useNavigate();
     const [isCreatingHabit, setIsCreatingHabit] = React.useState(false);
     const [habits, setHabits] = React.useState([]);
+    const [habitName, setHabitName] = React.useState("");
+    const [selectedDays, setSelectedDays] = React.useState([]);
 
     function loadHabits(token) {
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
@@ -54,20 +58,31 @@ export default function HabitsScreen() {
         }
     }
 
+    const contextValue = {
+        selectedDays, 
+        setSelectedDays, 
+        habitName, 
+        setHabitName,
+        loadHabits,
+        setIsCreatingHabit
+    };
+
     const descriptionText = makeDescription();
 
     return (
-        <Body>
-            <Header />
-                <Flex>
-                    <Title>Meus hábitos</Title>
-                    <Button onClick={() => setIsCreatingHabit(true)}>+</Button>
-                </Flex>
-                {isCreatingHabit? <HabitCreationCard loadHabits={loadHabits} setIsCreatingHabit={setIsCreatingHabit}/>: null}
-                {habits.map(habit => <HabitCard key={habit.id} id={habit.id} name={habit.name} days={habit.days} loadHabits={loadHabits} />)}
-                {descriptionText}
-            <Footer />
-        </Body>
+        <HabitsContext.Provider value={contextValue}>
+            <Body>
+                <Header />
+                    <Flex>
+                        <Title>Meus hábitos</Title>
+                        <Button onClick={() => setIsCreatingHabit(true)}>+</Button>
+                    </Flex>
+                    {isCreatingHabit? <HabitCreationCard />: null}
+                    {habits.map(habit => <HabitCard key={habit.id} id={habit.id} name={habit.name} days={habit.days} />)}
+                    {descriptionText}
+                <Footer />
+            </Body>
+        </HabitsContext.Provider>
     );
 }
 
