@@ -3,10 +3,10 @@ import dayjs from "dayjs";
 import React from "react";
 import styled from "styled-components";
 
-import ApplicationContext from "../contexts/ApplicationContext";
-import HabitsContext from "../contexts/HabitsContext";
+import ApplicationContext from "../../contexts/ApplicationContext";
+import HabitsContext from "../../contexts/HabitsContext";
 
-import { DayButton }  from "./Day";
+import DayButton  from "../../components/DayButton";
 
 export default function HabitCard({ id, name, days }) {
     dayjs.extend(require("dayjs/plugin/localeData"));

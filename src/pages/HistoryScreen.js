@@ -7,10 +7,10 @@ import styled from "styled-components";
 
 import ApplicationContext from "../contexts/ApplicationContext";
 
-import Body from "./Body";
-import Footer from "./Footer";
-import Header from "./Header";
-import Title from "./Title";
+import Body from "../components/Body";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Title from "../components/Title";
 
 import 'react-calendar/dist/Calendar.css';
 
@@ -34,7 +34,6 @@ export default function HistoryScreen() {
             const promise = axios.get(URL, config);
             promise
                 .then(response => {
-                    console.log(response.data);
                     const newIncompleteDays = [];
                     const newCompleteDays = [];
                     response.data.forEach(day => {

@@ -3,13 +3,13 @@ import dayjs from "dayjs";
 import React from "react";
 import styled from "styled-components";
 
-import ApplicationContext from "../contexts/ApplicationContext";
-import HabitsContext from "../contexts/HabitsContext";
+import ApplicationContext from "../../contexts/ApplicationContext";
+import HabitsContext from "../../contexts/HabitsContext";
 
-import Button from "./Button";
+import Button from "../../components/Button";
 import Day from "./Day";
-import Input from "./Input";
-import Loader from "./Loader";
+import Input from "../../components/Input";
+import Loader from "../../components/Loader";
 
 export default function HabitCreationCard() {
     const { loadHabits, setIsCreatingHabit, selectedDays, setSelectedDays, habitName, setHabitName } = React.useContext(HabitsContext);

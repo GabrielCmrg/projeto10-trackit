@@ -3,11 +3,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import ApplicationContext from "../contexts/ApplicationContext";
-import Container from "./Container";
-import Button from "./Button";
-import Input from "./Input";
-import Loader from "./Loader";
-import LogoImage from "./LogoImage";
+import Container from "../components/Container";
+import Button from "../components/Button";
+import Input from "../components/Input";
+import Loader from "../components/Loader";
+import LogoImage from "../components/LogoImage";
 
 export default function LoginScreen() {
     const [email, setEmail] = React.useState("");

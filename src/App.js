@@ -4,11 +4,12 @@ import React from "react";
 import GlobalStyle from "./themes/GlobalStyle";
 
 import ApplicationContext from "./contexts/ApplicationContext";
-import HabitsScreen from "./components/HabitsScreen";
-import HistoryScreen from "./components/HistoryScreen";
-import LoginScreen from "./components/LoginScreen";
-import SignupScreen from "./components/SignupScreen";
-import TodayScreen from "./components/TodayScreen";
+
+import HabitsScreen from "./pages/Habits/HabitsScreen";
+import HistoryScreen from "./pages/HistoryScreen";
+import LoginScreen from "./pages/LoginScreen";
+import SignupScreen from "./pages/SignupScreen";
+import TodayScreen from "./pages/Today/TodayScreen";
 
 export default function App() {
     const [loginInfo, setLoginInfo] = React.useState({

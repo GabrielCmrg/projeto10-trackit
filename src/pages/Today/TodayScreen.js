@@ -3,13 +3,14 @@ import dayjs from "dayjs";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import ApplicationContext from "../contexts/ApplicationContext";
-import Body from "./Body";
+import ApplicationContext from "../../contexts/ApplicationContext";
+
+import Body from "../../components/Body";
 import Card from "./Card";
-import Description from "./Description";
-import Footer from "./Footer";
-import Header from "./Header";
-import Title from "./Title";
+import Description from "../../components/Description";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import Title from "../../components/Title";
 
 export default function TodayScreen() {
     const { loginInfo, tasks, setTasks, tasksDone } = React.useContext(ApplicationContext);

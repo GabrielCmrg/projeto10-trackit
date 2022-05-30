@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import styled from "styled-components";
 
-import ApplicationContext from "../contexts/ApplicationContext";
+import ApplicationContext from "../../contexts/ApplicationContext";
 
 export default function Card({task, loadTodayHabits}) {
     const { loginInfo } = useContext(ApplicationContext);

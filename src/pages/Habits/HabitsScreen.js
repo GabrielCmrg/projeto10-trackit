@@ -3,17 +3,17 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import ApplicationContext from "../contexts/ApplicationContext";
-import HabitsContext from "../contexts/HabitsContext";
+import ApplicationContext from "../../contexts/ApplicationContext";
+import HabitsContext from "../../contexts/HabitsContext";
 
-import Body from "./Body";
-import Button from "./Button";
-import Description from "./Description";
-import Footer from "./Footer";
+import Body from "../../components/Body";
+import Button from "../../components/Button";
+import Description from "../../components/Description";
+import Footer from "../../components/Footer";
 import HabitCard from "./HabitCard";
 import HabitCreationCard from "./HabitCreationCard";
-import Header from "./Header";
-import Title from "./Title";
+import Header from "../../components/Header";
+import Title from "../../components/Title";
 
 export default function HabitsScreen() {
     const { loginInfo } = React.useContext(ApplicationContext);
